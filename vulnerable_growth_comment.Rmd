@@ -1,0 +1,185 @@
+---
+title: 'Vulnerable Growth: Comment'
+author: Lluc Puig-Codina^[llucpuigcodina@gmail.com; The views expressed in this document
+  reflect those of the author and are not necessarily shared by the European Central
+  Bank. This research did not receive any funding from agencies in the public, commercial
+  or not-for-profit sectors. I would like to thank Adrian Pagan for his helpful comments and suggestions. All errors are my own.]
+geometry: left=1.2in,right=1.2in,top=1.5in,bottom=1.5in
+output:
+  pdf_document:
+    keep_tex: yes
+  word_document: default
+  html_document:
+    df_print: paged
+linestretch: 1.5
+mainfont: Times New Roman
+header-includes:
+- \usepackage{booktabs}
+- \usepackage{longtable}
+- \usepackage{caption}
+- \captionsetup[figure]{labelformat=empty}
+fontsize: 12pt
+urlcolor: blue
+---
+
+```{r settings, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+rm(list=ls())
+set.seed(777)
+```
+
+\newpage
+
+\abstract{\textit{Adrian et al. (2019) study the conditional distribution of GDP growth, finding a tight relationship between downside risks and financial conditions. Herein I examine the robustness of their conclusions. The main findings are: \textbf{i.} One-year-ahead predictive distributions show no evidence of conditional skewness, \textbf{ii.} Inference is based upon taking  some parameter estimates as true values or using wrong critical values, \textbf{iii.} Methodological shortcomings related to the fitting of the skewed t-Student distribution \textbf{iv.} Incorrect claims about model properties and its interpretation are made.} (JEL C53, E27, E32, E44)}
+
+\vspace{0.5cm}
+
+Adrian et al. (2019) - henceforth ABG - argue that there is a connection between future real GDP growth and deteriorating financial conditions today. The first piece of evidence put forward to motivate such connection is a three dimensional plot of a remarkable aesthetic, ABG Figure 1, showing the one-year-ahead predicted conditional distribution of real GDP growth across time. The figure is used to summarize and present several of their main findings, ABG page 1264:
+
+> Two features are striking about the estimated distribution. First, the entire distribution, and not just the central tendency, evolves over time. For example, recessions are associated with left-skewed distributions while, during expansions, the conditional distribution is closer to being symmetric. Second, the probability distributions inherit the stability of the right tail from the estimated quantile distribution, while the median and the left tail of the distribution exhibit strong time series variation. This asymmetry in the evolution of the conditional distribution of future GDP growth indicates that downside risk to growth varies much more strongly over time than upside risk.
+
+This article asks how robust their conclusions are to various issues that arise with the methods they employ.
+
+
+
+# I. The Mechanism: Quantile Regressions
+
+```{r quantile_regression, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+setwd("code/")
+source("quantile_regression.R", echo = FALSE)
+```
+
+The first step in documenting a relationship between financial conditions, measured by the National Financial Conditions Index (NFCI), and real GDP growth is presented in the univariate quantile regressions of ABG Figure 3. The dependent variable is either one-year-ahead or one-quarter ahead real GDP growth. The independent variable is either current NFCI or current real GDP growth. The authors show that quantile regression slopes are similar at different percentiles for current real GDP growth, but regression slopes present large changes across percentiles for NFCI, implying an asymmetric response of future real GDP growth to financial conditions. In particular, slopes are close to 0 for the 95 percentile, while for the 5 percentile they are steep and negative. Despite the authors reassurance that "regression slopes for the NFCI do not change significantly when current GDP growth is also included in the regression", they do. For the one-year-ahead specification, the 95 percent quantile regression slope of NFCI goes from `r beta_univariate_95` to `r beta_multivariate_95` when current real GDP growth is included. This can be clearly seen by comparing results in ABG Figure 3 Panel D with Figure 4 Panel D. Despite being an extreme percentile, the fitted values from this regression will be key in the construction of the conditional distributions shown in ABG Figure 1 and Figure 5 Panel B.
+
+Then, ABG move on present further evidence interpreted as indicative of a non-linear relationship between real GDP growth and financial conditions, ABG page 1269:
+
+> Figure 4 shows that, at both the lower and the upper quantiles, the estimated slopes are significantly different at the 10 percent level, from the OLS slope.^5^
+
+To get their Figure 4 involves two steps. First, multivariate quantile regressions were estimated at percentile $\tau \in \{0.05, 0.1,\dots, 0.95\}$ using the actual data. The second step involved estimating a bivariate VAR(4) and simulating 1000 samples using normal innovations. For each of the simulated samples a quantile regression at $\tau$ is fitted and the median of the slopes found, along with 68, 90 and 95 percent confidence intervals (CIs). If the point estimates using the actual data are outside the CIs of the estimated slopes using simulated data, ABG conclude that the regression slopes are different. Under the authors interpretation of the results, the relevant null hypothesis is $\widehat{\beta(\tau)^{sim}} - \widehat{\beta(\tau)^{orig}} = 0$.\footnote{Say only for a particular variable and percentile, thus sidestepping the issue of multiple hypothesis testing.} Yet the procedure seems to ignore the uncertainty in the estimation of the regression slope on the original data, whose CIs are never reported, treating it as a constant. Therefore, the test holds valid only if we assume the point estimate of the regression slope to be the true parameter, an unreliable assumption for proper inference.
+
+As an additional note of caution, notice that in all specifications GDP enters the quantile regression and VAR in growth rates, while NFCI enters the regression and VAR in levels. Such setting implies that if the relationship is to be interpreted as causal, financial shocks have a permanent effect on upon the \textit{level of GDP}.
+
+# II. Predictive Distributions and Skewed t-Student Fitting
+
+As described in the paper, ABG Figure 5 reports the fitted values of quantile regression at the 5, 25, 50, 75 and 95 percentiles, alongside the realization of real GDP growth. ABG Figure 5 Panel B can be interpreted as a 'raw' version of Figure 1 in ABG\footnote{If we only use the 5, 25, 75 and 95 percentiles.}, before fitting the skewed t-Student. Therefore, many of the properties found in Figure 1 of ABG should also be found in ABG Figure 5 Panel B. If we want to focus on time varying skewness, both figures are difficult to interpret. Many things happen at the same time: location shifts, changes in the variance, skewness and so on. In order to better appreciate time varying skewness in the predictive distributions one could center Figure 5 Panel B of ABG around the conditional mean. This is what I present in Figure 1. The conditional mean is estimated via OLS regression: $\widehat{\mathbf{E}\{y_{t+h} | x_t \}} = \widehat{\beta_0^{OLS}} + \widehat{\beta_1^{OLS}}x_t$; where $y_{t+h}$ is annualized average real GDP growth between $t+1$ and $t+h$, and $x_t$ is a vector containing current real GDP growth and NFCI.
+
+$$
+\text{[Figure 1 here]}
+$$
+
+At glance at the figure shows that, after removing changes in the mean, the One-Year-ahead specification exhibits neither asymmetry nor time varying skewness. At the very least one can certainly see that the distribution does not exhibit greater left skewness during recessions as ABG claim.
+
+Another piece of evidence on the lack of such skewness during recessions is presented in ABG Figure A.2. (b), which plots the evolution of the estimated skewed t-Student shape parameter for the One-Year-Ahead specification. There seems to be either none or very little relationship between the shape parameter and recessions. Even though the authors note this, and point to changes in the location and scale parameters as the main drivers of the conditional distribution, it hasn't prevented them from citing skewness as evident in ABG Figure 1.
+
+A closer examination of ABG's method is warranted. After obtaining the fitted values from quantile regression at the 5, 25, 75 and 95 percentiles, a skewed t-Student is selected and its four parameters are chosen to minimize, at every $t$, the sum of square distances between the regression estimated quantiles and the distribution implied quantiles. In the matching, bounds are imposed on the values of the parameters.\footnote{$-20 \leq \mu \leq 20$; $0 < \sigma \leq 50$; $-30 \leq \alpha \leq 30$; and $\nu \in \{1,2, \dots,30\}$. Due to the degrees of freedom being discrete, AGBs optimization consists of grid search over a restricted parameter space for the degrees of freedom, bringing into question claims about computational efficiency.} The attractive use of the skewed t-Student in this application is that the conditional mean, variance, skewness and kurtosis of the stochastic process can be time varying. Moreover, subject to some regularity constraints, the estimation is exactly identified. An issue that is naturally raised here is that one could choose a different quadruple of percentiles and these could possibly give different parameter estimates. Because one is essentially doing method of moments estimation there is no guarantee that the answers will be the same. ABG are silent as to why they choose the quadruple of  (5, 25, 75 and 95)th percentiles. Without knowing how large is the uncertainty around those estimates, as in prediction intervals, which could be high for extreme quantiles such as the 5 and 95 percentiles, one is also unable to know how accurate are the distributions presented in Figure 1 of ABG.
+
+The estimated parameters are reported in ABG Figures A.1 and A.2, which I believe are important figures to understand the results of their method. As an illustration I reproduce ABG Figure A.1 and A.2 in Figure 2 and 3 using not only their selected percentiles (blue) but also an alternative skewed $t$-distribution parameter estimation using the quadruple of (20, 40, 60 and 80)th percentiles (red). It is clear that there are large differences between the estimated parameters from the use of different percentiles. Such large differences in the parameters will also translate in large differences for estimated risk measures such as Expected Shortfall.\footnote{Another issue to be raised is that of quantile crossing, which violates the monotonicity condition of the quantile function. Quantile crossing can be observed in ABG Figure 7 at many panels, where the raw CDF decreases. Some of this issues are not new, Fan and Fan (2006) show that quantile autoregression produces inconsistent estimates and is highly sensible to misspecification when conditional quantiles are not strictly increasing in $\tau$.}
+
+$$
+\text{[Figure 2 here]}
+$$
+
+$$
+\text{[Figure 3 here]}
+$$
+
+
+# III. Alternative Approaches and Out of Sample Evidence
+
+ABG employ two other econometric models which they claim result in findings similar to what is obtained using their main methodology. It is implied that such exercises provide robustness to their conclusions. The first approach was to fit a conditionally heteroskedastic model of the form:
+
+\begin{align}
+y_{t+1} = \gamma_0 + \gamma_1 x_t + \sigma_t\varepsilon_{t+1}; \ \ \ \ \ln(\sigma^2_t) = \delta_0 + \delta_1 x_t
+\end{align}
+
+where $y_{t+1}$ is real GDP growth next quarter and $x_t$ a vector with current NFCI and real GDP growth. The error term is assumed to be normally distributed, $\varepsilon_{t+1} \sim \mathcal{N}(0,1)$. Therefore, the conditional distribution is:
+
+\begin{align}
+y_{t+1}|x_t \sim \mathcal{N}(\gamma_0 + \gamma_1 x_t, e^{\delta_0 + \delta_1 x_t})
+\end{align}
+
+i.e. it is normal, and so there is no skewness in it. It is therefore difficult to conclude that there is (ABG page 1281):
+
+> The simple conditionally heteroskedastic model is able to reproduce the strongly skewed conditional GDP distribution by simply shifting the mean and volatility of GDP as a function of economic and financial conditions.
+
+Finally, we can turn to the out-of-sample evidence. In order to back-test the model ABG use the test developed in Rossi and Sekhposyan (2019), whose results are shown in ABG Figure 11 Panel C and D. The test is based on the fact that a random variable evaluated at its own CDF follows a standard uniform distribution. This is known as the probability integral transforms (PITs) and involves using one step ahead CDFs of the estimated t-Students evaluated at their realization. The closer the CDF of the PITs is to the 45 degree line the better. 
+
+The authors interpret the results in the following way (ABG page 1279):
+
+> For both the full conditional predictive distribution and the predictive distribution that conditions on economic conditions only, the empirical distribution of the PITs is well within the confidence bands for the lower quantiles, though the empirical distribution falls outside the confidence band in the center of the distribution.
+
+This interpretation is incorrect. The confidence bounds used in ABG correspond to the null hypothesis of the \textit{full distribution being correctly specified}.\footnote{In the replication codes \texttt{VulnerabilityOutOfSample.m} line 333-4 the critical value is defined for the One-Quarter-Ahead Specification, $\kappa$ = 1.34. In Rossi and Sekhposyan (2019) Table 1 Panel A, 1.34 is the critical value corresponding to a test on the whole distribution.} Therefore, the correct interpretation is that at one quarter ahead we can reject the null of the full distribution being correctly specified for both the "only GDP" and "GDP and NFCI". In the case of one-year-ahead, we can't reject the null for both models. Nothing can be said about other percentile ranges with those CIs. A remarkable fact from ABG Figure 11 Panel C and D is that the model with GDP only seems to almost always be closer to the 45 degree line than the model with GDP and NFCI. In addition, there seems to be some discrepancies between the test as described in Rossi and Sekhposyan (2019) and the implementation in ABG, see the Appendix.
+
+If instead of testing the null of the full distribution being correctly specified we only want to test that the left tail, say $\tau \in [0, 0.25]$, is correctly specified, as ABG seem to intend, the corresponding critical value is a smaller one, yielding smaller CIs.\footnote{$\kappa = 1$  as reported in Table 1 Panel B of Rossi and Sekhposyan (2019) for one step ahead forecasts.} For this exercise, instead of using an expanding window, as ABG do, I use a moving window, as is appropriate for the test. Therefore, I use data from 1973:I to 1992:IV to estimate the predictive distribution for 1993:I (one quarter ahead) and 1993:IV (one year ahead).\footnote{Despite ABG describing their exercise in a similar manner their first predictive density out of sample is for 1993:II (one quarter ahead) and 1994:I (one year ahead). One can easily observe this by noting that from and including 1993:I to 2015:IV there are 92 quarters, but the object \texttt{PitST\_OOS} in code \texttt{VulnerabilityOutOfSample.m} only contains 91 values.} Then I use data from 1973:II to 1993:I to estimate the predictive distribution for 1993:II (one quarter ahead) and 1994:I (one year ahead), and so on until a 2015:IV forecast. Results are shown in Table 1. If the statistic is larger than the critical value we can reject the null hypothesis of the conditional left tail being correctly specified.\footnote{For the One-Year-Ahead specifications I have followed ABG in implementing the multi-step ahead version of the test, although the forecast seems to be direct. If I was to use the critical values of the one-step test, 1 and 0.34, the conclusions remain unaltered.} Both at One-Quarter and One-Year-Ahead we can reject the null of the left tail being correctly specified for "NFCI and GDP", but not for "only GDP".
+
+
+$$
+\text{[Table 1 here]}
+$$
+
+
+# IV. Discussion
+
+There seem to be shortcomings in the analysis which raise concerns about the overall robustness of the results and the reliability of the method. The same method has been used in Chapter 2 of the IMF Global Financial Conditions Report since October 2017 and is the same one underpinning the IMF Growth-at-Risk tool\footnote{IMF. 2019. “Growth-at-Risk Tool” \textit{Github}, Februrary 22. \url{https://github.com/IMFGAR/GaR}. Aside from the issues raised in this comment, in the technical documentation one can find some disturbing remarks regarding implementation: “To avoid that the t-skew parametrization converges towards a Gaussian (infinite degrees of freedom), the tool anchors the degrees of freedom at 2.”}, which has been used in several article IV country reports. The method has also been extended to study the term structure of growth at risk, Adrian et. al. (2018) and house prices at risk, IMF Global Financial Stability report April 2019.
+
+
+# References
+
+**Adrian, Tobias, Nina Boyarchenko, and Domenico Giannone**. 2019. "Vulnerable Growth." *American Economic Review* 109 (4): 1263-89.
+
+**Adrian, Tobias, Grinberg, Federico, Liang, Nellie, and Malik, Sheheryar.** 2018. "The term structure of growth-at-risk." International Monetary Fund.
+
+**Fan, Jianqing, and Yingying Fan.** 2010. "Issues on quantile autoregression." Unpublished.
+
+**Rossi, Barbara, and Sekhposyan, Tatevik.** 2019. "Alternative tests for correct specification of conditional predictive densities." *Journal of Econometrics* 208 (2): 638-657.
+
+
+# Tables
+
+```{r table1, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+library(readr)
+RStestresults <- read_csv("storage/RStestresults.csv")
+RStestresults <- RStestresults[,-c(1)]
+RStestresults <- round(RStestresults, digits = 2)
+
+rownames(RStestresults) <-c("One-Quarter-Ahead GDP and NFCI",
+                            "One-Quarter-Ahead only GDP",
+                            "One-Year-Ahead GDP and NFCI",
+                            "One-Year-Ahead only GDP")
+colnames(RStestresults) <-c("Statistic", "Critical Value at 95%", 
+                            "Statistic", "Critical Value at 95%")
+
+
+options(kableExtra.latex.load_packages = FALSE)
+library(kableExtra)
+
+kable(RStestresults, "latex", longtable = T, booktabs = T, caption = "Correct Specification Tests of the Conditional Left Tail") %>%
+  add_header_above(c(" ", "Kolmogorov-Smirnov Test" = 2, "Cràmer-von Mises Test" = 2))
+```
+
+# Figures
+
+![*Note*: The figure shows the time series evolution of the centered predicted distributions of one-year-ahead real GDP growth.](figures/figure1.pdf)
+
+![*Note*: The figure shows the time series evolution of location $\mu_t$ and scale $\sigma_t$. The blue line shows the specification using the 5, 25, 75 and 95 percentiles while the red line shows the specification using the 20, 40, 60 and 80 percentiles.](figures/figure2.pdf)
+
+![*Note*: The figure shows the time series evolution of location shape $\alpha_t$ and degrees of freedom $\nu_t$. The blue line shows the specification using the 5, 25, 75 and 95 percentiles while the red line shows the specification using the 20, 40, 60 and 80 percentiles.](figures/figure3.pdf)
+
+\newpage
+
+# Appendix
+
+## Implementation of Rossi and Sekhposyan (2019)
+
+Right after stating Assumption 3, Rossi and Sekhposyan (2019) define the bootstrap statistic as:
+
+$$
+\Psi_P^*(r; \omega) = P^{-1/2}\sum_{j=R}^{T-l+1}\eta_j \sum_{i=j}^{j+l-1} \left ( 1\{z_{i+h}(\omega) \leq r \} - \frac{1}{P}\sum_{t=R}^{T}1\{z_{t+h}(\omega) \leq r \} \right )
+$$
+
+The replication code `CVfinalbootstrapInoue.m` of ABG, instead of implementing the above estimator, seems to implement the following as the boostrap statistic: 
+
+$$
+\Psi_P^*(r; \omega) = P^{-1/2}\sum_{j=R}^{T-l+1}\eta_j \sum_{i=j}^{j+l-1} \left ( 1\{z_{i+h}(\omega) \leq r \} - r \right )
+$$
+
+This difference can be clearly observed if one compares the implementation of ABG with the implementation found in [Sekhposyan's website](http://www.tateviksekhposyan.org/example.zip).

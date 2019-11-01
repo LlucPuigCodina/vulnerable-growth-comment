@@ -1,0 +1,75 @@
+---
+always_allow_html: yes
+fontsize: 12pt
+linestretch: 1.5
+mainfont: Times New Roman
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+urlcolor: blue
+---
+
+This folder contains the replication files for
+**Vulnerable Growth: Comment** by Lluc Puig-Codina.
+
+The scripts contained in this folder were tested on:
+
+- R version 3.6.0 (2019-04-26)
+- Platform: x86_64-w64-mingw32/x64 (64-bit)
+- Running under: Windows 7 x64 (build 7601) Service Pack 1
+
+The `R` library dependencies are listed at the top of each .R file.
+
+## Contact information
+  - Lluc Puig-Codina: llucpuigcodina@gmail.com
+  
+## Folder structure
+
+```
+.
++-- codes
+|   +-- quantile_regression.R
+|   +-- centered_predictive_distribution.R 
+|   +-- distribution_fitting.R
+|   +-- out_of_sample.R
+|   +-- RStest.R
+|
++-- data
+|   +-- DataVulnerability.xls
+|
++-- storage                    
+|   +-- parameters_in_sample.csv
+|   +-- parametersA_in_sample.csv            
+|   +-- alternative_parameters_in_sample.csv             
+|   +-- alternative_parametersA_in_sample.csv
+|   +-- parameters_out_of_sample.csv
+|   +-- parameters_out_of_sampleA.csv
+|   +-- parameters_out_of_sample_only_GDP.csv
+|   +-- parameters_out_of_sampleA_only_GDP.csv
+|   +-- RStestresults.csv
+|
++-- figures
+    +-- figure1.pdf
+    +-- figure2.pdf
+    +-- figure3.pdf
+```
+
+## Description of the data
+
+All data used is contained in ./data/DataVulnerability.xls. References to the data sources are included in the file. The file is the same one found in the replication codes of Vulnerable Growth: [https://www.aeaweb.org/doi/10.1257/aer.20161923.data](https://www.aeaweb.org/doi/10.1257/aer.20161923.data)
+
+
+## Description of the codes
+
+- quantile_regression.R: Reproduces the quantile regression parameter estimates in section I. Output is printed in the console.
+- centered_predictive_distribution.R: Reproduces Figure 1. Output is saved in ./figures/figure1.pdf.
+- distribution_fitting.R: Reproduces Figure 2 and 3. Output is saved in ./figures/figure2.pdf and ./figures/figure3.pdf.
+- RStest.R: Implements the test of [Rossi and Sekhposyan (2019)](https://doi.org/10.1016/j.jeconom.2018.07.008).
+- out_of_sample.R: Reproduces Table 1. Output is saved in ./storage/RStestresults.csv.
+
+
+
+## Description of storage
+In storage several outputs and transformations of the data are saved in case the user of this codes does not whish to recompute all results, which can take a while.
+In code files distribution_fitting.R and out_of_sample.R one can find `use_stored_results = TRUE`. Set the previous variable to `FALSE` to recompute all results, which can take quite some time.
