@@ -4,7 +4,6 @@ author: Lluc Puig-Codina^[llucpuigcodina@gmail.com; The views expressed in this 
   reflect those of the author and are not necessarily shared by the European Central
   Bank. This research did not receive any funding from agencies in the public, commercial
   or not-for-profit sectors. I would like to thank Adrian Pagan for his helpful comments and suggestions. All errors are my own.]
-geometry: left=1.2in,right=1.2in,top=1.5in,bottom=1.5in
 output:
   pdf_document:
     keep_tex: yes
@@ -18,7 +17,7 @@ header-includes:
 - \usepackage{longtable}
 - \usepackage{caption}
 - \captionsetup[figure]{labelformat=empty}
-fontsize: 12pt
+fontsize: 11pt
 urlcolor: blue
 ---
 
@@ -124,14 +123,15 @@ There seem to be shortcomings in the analysis which raise concerns about the ove
 
 # References
 
-**Adrian, Tobias, Nina Boyarchenko, and Domenico Giannone**. 2019. "Vulnerable Growth." *American Economic Review* 109 (4): 1263-89.
+Adrian, T., Boyarchenko, N., & Giannone, D. (2019). Vulnerable growth. *American Economic Review*, 109(4), 1263-89.
 
-**Adrian, Tobias, Grinberg, Federico, Liang, Nellie, and Malik, Sheheryar.** 2018. "The term structure of growth-at-risk." International Monetary Fund.
+Adrian, T., Grinberg, F., Liang, N., & Malik, S. (2018). The term structure of growth-at-risk. *International Monetary Fund*.
 
-**Fan, Jianqing, and Yingying Fan.** 2010. "Issues on quantile autoregression." Unpublished.
+Fan, J., & Fan, Y. (2010). Issues on quantile autoregression. *Unpublished*.
 
-**Rossi, Barbara, and Sekhposyan, Tatevik.** 2019. "Alternative tests for correct specification of conditional predictive densities." *Journal of Econometrics* 208 (2): 638-657.
+Rossi, B., & Sekhposyan, T. (2019). Alternative tests for correct specification of conditional predictive densities. *Journal of Econometrics*, 208(2), 638-657.
 
+\newpage
 
 # Tables
 
@@ -155,6 +155,8 @@ library(kableExtra)
 kable(RStestresults, "latex", longtable = T, booktabs = T, caption = "Correct Specification Tests of the Conditional Left Tail") %>%
   add_header_above(c(" ", "Kolmogorov-Smirnov Test" = 2, "Cràmer-von Mises Test" = 2))
 ```
+
+\newpage
 
 # Figures
 
