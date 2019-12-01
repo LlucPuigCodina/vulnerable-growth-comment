@@ -28,7 +28,7 @@ set.seed(777)
 
 \newpage
 
-\abstract{\textit{Adrian et al. (2019) study the conditional distribution of GDP growth, finding a tight relationship between downside risks and financial conditions. Herein I examine the robustness of their conclusions. The main findings are: \textbf{i.} One-year-ahead predictive distributions show no evidence of conditional skewness, \textbf{ii.} Inference is based upon taking  some parameter estimates as true values or using wrong critical values, \textbf{iii.} Methodological shortcomings related to the fitting of the skewed t-Student distribution \textbf{iv.} Incorrect claims about model properties and its interpretation are made.} (JEL C53, E27, E32, E44)}
+\abstract{\textit{Adrian et al. (2019) study the conditional distribution of GDP growth, finding a tight relationship between downside risks and financial conditions. Herein I examine the robustness of their conclusions. The main findings are: \textbf{i.} One-year-ahead predictive distributions show no evidence of conditional skewness, \textbf{ii.} Inference is based upon taking  some parameter estimates as true values or using wrong critical values, \textbf{iii.} Methodological shortcomings related to the fitting of the skewed t-Student distribution \textbf{iv.} Incorrect claims about model properties and its interpretation are made.} \\ \textit{Keywords}: forecasting, replication, vulnerable growth, growth-at-risk. \\ \textit{JEL Codes}: C53, E27, E32, E44.}
 
 \vspace{0.5cm}
 
