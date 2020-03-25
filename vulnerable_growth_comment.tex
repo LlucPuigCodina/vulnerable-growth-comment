@@ -1,41 +1,55 @@
-\documentclass[11pt,]{article}
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+%
+\documentclass[
+  11pt,
+]{article}
 \usepackage{lmodern}
 \usepackage{setspace}
-\setstretch{1.5}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-\else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-  \else
-    \usepackage{fontspec}
-  \fi
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
-    \setmainfont[]{Times New Roman}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+  \setmainfont[]{Times New Roman}
 \fi
-% use upquote if available, for straight quotes in verbatim environments
+% Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Vulnerable Growth: Comment},
+  pdfauthor={Lluc Puig-Codina},
+  colorlinks=true,
+  linkcolor=Maroon,
+  filecolor=Maroon,
+  citecolor=Blue,
+  urlcolor=blue,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=1in]{geometry}
-\usepackage{hyperref}
-\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
-\hypersetup{unicode=true,
-            pdftitle={Vulnerable Growth: Comment},
-            pdfauthor={Lluc Puig-Codina},
-            colorlinks=true,
-            linkcolor=Maroon,
-            citecolor=Blue,
-            urlcolor=blue,
-            breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -45,64 +59,32 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{0}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-
-%%% Use protect on footnotes to avoid problems with footnotes in titles
-\let\rmarkdownfootnote\footnote%
-\def\footnote{\protect\rmarkdownfootnote}
-
-%%% Change title format to be more compact
-\usepackage{titling}
-
-% Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
-  \posttitle{
-    \begin{center}\large#1\end{center}
-    }
-}
-
-\setlength{\droptitle}{-2em}
-
-  \title{Vulnerable Growth: Comment}
-    \pretitle{\vspace{\droptitle}\centering\huge}
-  \posttitle{\par}
-    \author{Lluc Puig-Codina\footnote{\href{mailto:llucpuigcodina@gmail.com}{\nolinkurl{llucpuigcodina@gmail.com}};
-  The views expressed in this document reflect those of the author and
-  are not necessarily shared by the European Central Bank. This research
-  did not receive any funding from agencies in the public, commercial or
-  not-for-profit sectors. I would like to thank Adrian Pagan for his
-  helpful comments and suggestions. All errors are my own.}}
-    \preauthor{\centering\large\emph}
-  \postauthor{\par}
-    \date{}
-    \predate{}\postdate{}
-  
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{caption}
 \captionsetup[figure]{labelformat=empty}
 
+\title{Vulnerable Growth: Comment}
+\author{Lluc Puig-Codina\footnote{\href{mailto:llucpuigcodina@gmail.com}{\nolinkurl{llucpuigcodina@gmail.com}};
+  The views expressed in this document reflect those of the author and
+  are not necessarily shared by the European Central Bank. This research
+  did not receive any funding from agencies in the public, commercial or
+  not-for-profit sectors. I would like to thank Adrian Pagan for his
+  helpful comments and suggestions. All errors are my own.}}
+\date{}
+
 \begin{document}
 \maketitle
 
+\setstretch{1.5}
 \newpage
 
 \abstract{Adrian et al. (\textit{American Economic Review}, 2019, 109(4), 1263-89) study the conditional distribution of GDP growth, finding a tight relationship between downside risks and financial conditions. Herein I examine the robustness of their conclusions. The main findings are: \textbf{i.} One-year-ahead predictive distributions show no evidence of conditional skewness, \textbf{ii.} Inference is based upon taking  some parameter estimates as true values or using wrong critical values, \textbf{iii.} Methodological shortcomings related to the fitting of the skewed t-Student distribution and \textbf{iv.} Incorrect claims about model properties and its interpretation are made. \\ \textit{Keywords}: forecasting, replication, vulnerable growth, growth-at-risk. \\ \textit{JEL Codes}: C53, E27, E32, E44.}
@@ -175,8 +157,9 @@ regressions were estimated at percentile
 step involved estimating a bivariate VAR(4) and simulating 1000 samples
 using normal innovations. For each of the simulated samples a quantile
 regression at \(\tau\) is fitted and the median of the slopes found,
-along with 68, 90 and 95 percent confidence intervals (CIs). If the
-point estimates using the actual data are outside the CIs of the
+along with 68, 90 and 95 percent confidence intervals
+(CIs).\footnote{Note that the CI come from fitting quantile regressions, not OLS, as the confidence intervals vary at each $\tau$.}
+If the point estimates using the actual data are outside the CIs of the
 estimated slopes using simulated data, ABG conclude that the regression
 slopes are different. Under the authors interpretation of the results,
 the relevant null hypothesis is
@@ -185,7 +168,8 @@ Yet the procedure seems to ignore the uncertainty in the estimation of
 the regression slope on the original data, whose CIs are never reported,
 treating it as a constant. Therefore, the test holds valid only if we
 assume the point estimate of the regression slope to be the true
-parameter, an unreliable assumption for proper inference.
+parameter, an unreliable assumption for proper
+inference.\footnote{I attempted to produce confidence intervals for the in-sample estimates using the moving block boostrap of Fitzenberger (1998) but obtained inconsistent distributions of boostrap estimates.}
 
 As an additional note of caution, notice that in all specifications GDP
 enters the quantile regression and VAR in growth rates, while NFCI
@@ -263,7 +247,8 @@ there are large differences between the estimated parameters from the
 use of different percentiles. Such large differences in the parameters
 will also translate in large differences for estimated risk measures
 such as Expected
-Shortfall.\footnote{Another issue to be raised is that of quantile crossing, which violates the monotonicity condition of the quantile function. Quantile crossing can be observed in ABG Figure 7 at many panels, where the raw CDF decreases. Some of this issues are not new, Fan and Fan (2006) show that quantile autoregression produces inconsistent estimates and is highly sensible to misspecification when conditional quantiles are not strictly increasing in $\tau$.}
+Shortfall\footnote{Another issue to be raised is that of quantile crossing, which violates the monotonicity condition of the quantile function. Quantile crossing can be observed in ABG Figure 7 at many panels, where the raw CDF decreases. Some of this issues are not new, Fan and Fan (2006) show that quantile autoregression produces inconsistent estimates and is highly sensible to misspecification when conditional quantiles are not strictly increasing in $\tau$.},
+see Figure 4.
 
 \[
 \text{[Figure 2 here]}
@@ -271,6 +256,10 @@ Shortfall.\footnote{Another issue to be raised is that of quantile crossing, whi
 
 \[
 \text{[Figure 3 here]}
+\]
+
+\[
+\text{[Figure 4 here]}
 \]
 
 \hypertarget{iii.-alternative-approaches-and-out-of-sample-evidence}{%
@@ -331,18 +320,22 @@ correspond to the null hypothesis of the
 Therefore, the correct interpretation is that at one quarter ahead we
 can reject the null of the full distribution being correctly specified
 for both the ``only GDP'' and ``GDP and NFCI''. In the case of
-one-year-ahead, we can't reject the null for both models. Nothing can be
-said about other percentile ranges with those CIs. A remarkable fact
-from ABG Figure 11 Panel C and D is that the model with GDP only seems
-to almost always be closer to the 45 degree line than the model with GDP
-and NFCI. In addition, there seems to be some discrepancies between the
-test as described in Rossi and Sekhposyan (2019) and the implementation
-in ABG, see the Appendix.
+one-year-ahead, we can't reject the null for both models. Note that it
+can not be concluded that a particular percentile range
+\([a,b] \subsetneq [0,1]\) is correctly specified if does not fall
+outside the CI corresponding to the full distribution being correctly
+specified, as AGB interpret. A remarkable fact from ABG Figure 11 Panel
+C and D is that the model with GDP only seems to \textit{almost always}
+be closer to the 45 degree line than the model with GDP and NFCI. In
+addition, there seems to be some discrepancies between the test as
+described in Rossi and Sekhposyan (2019) and the implementation in ABG,
+see the Appendix.
 
 If instead of testing the null of the full distribution being correctly
-specified we only want to test that the left tail, say
-\(\tau \in [0, 0.25]\), is correctly specified, as ABG seem to intend,
-the corresponding critical value is a smaller one, yielding smaller
+specified we only want to test that the left tail,
+\(\tau \in [0, 0.25]\) as in Rossi and Sekhposyan (2019), is correctly
+specified, as ABG seem to intend, the corresponding critical value is a
+smaller one, yielding smaller
 CIs.\footnote{$\kappa = 1$  as reported in Table 1 Panel B of Rossi and Sekhposyan (2019) for one step ahead forecasts.}
 For this exercise, instead of using an expanding window, as ABG do, I
 use a moving window, as is appropriate for the test. Therefore, I use
@@ -354,7 +347,7 @@ distribution for 1993:II (one quarter ahead) and 1994:I (one year
 ahead), and so on until a 2015:IV forecast. Results are shown in Table
 1. If the statistic is larger than the critical value we can reject the
 null hypothesis of the conditional left tail being correctly
-specified.\footnote{For the One-Year-Ahead specifications I have followed ABG in implementing the multi-step ahead version of the test, although the forecast seems to be direct. If I was to use the critical values of the one-step test, 1 and 0.34, the conclusions remain unaltered.}
+specified.\footnote{For the One-Year-Ahead specifications I have followed ABG in implementing the multi-step ahead version of the test, including their block length choice. If I was to use the critical values of the one-step test, 1 and 0.34, the conclusions remain unaltered.}
 Both at One-Quarter and One-Year-Ahead we can reject the null of the
 left tail being correctly specified for ``NFCI and GDP'', but not for
 ``only GDP''.
@@ -386,6 +379,10 @@ Adrian, T., Boyarchenko, N., \& Giannone, D. (2019). Vulnerable growth.
 Adrian, T., Grinberg, F., Liang, N., \& Malik, S. (2018). The term
 structure of growth-at-risk. \emph{International Monetary Fund}.
 
+Fitzenberger, B. (1998). The moving blocks bootstrap and robust
+inference for linear least squares and quantile regressions.
+\emph{Journal of Econometrics}, 82(2), 235-287.
+
 Fan, J., \& Fan, Y. (2010). Issues on quantile autoregression.
 \emph{Unpublished}.
 
@@ -398,7 +395,7 @@ Econometrics}, 208(2), 638-657.
 \hypertarget{tables}{%
 \section{Tables}\label{tables}}
 
-\begin{longtable}{lrrrr}
+\begin{longtable}[t]{lrrrr}
 \caption{\label{tab:table1}Correct Specification Tests of the Conditional Left Tail}\\
 \toprule
 \multicolumn{1}{c}{ } & \multicolumn{2}{c}{Kolmogorov-Smirnov Test} & \multicolumn{2}{c}{Cràmer-von Mises Test} \\
@@ -443,6 +440,14 @@ while the red line shows the specification using the 20, 40, 60 and 80
 percentiles.}
 \end{figure}
 
+\begin{figure}
+\centering
+\includegraphics{figures/figure4.pdf}
+\caption{\emph{Note}: The blue line shows the specification using the 5,
+25, 75 and 95 percentiles while the red line shows the specification
+using the 20, 40, 60 and 80 percentiles.}
+\end{figure}
+
 \newpage
 
 \hypertarget{appendix}{%
@@ -471,6 +476,5 @@ This difference can be clearly observed if one compares the
 implementation of ABG with the implementation found in
 \href{http://www.tateviksekhposyan.org/example.zip}{Sekhposyan's
 website}.
-
 
 \end{document}

@@ -15,7 +15,7 @@ This folder contains the replication files for
 
 The scripts contained in this folder were tested on:
 
-- R version 3.6.0 (2019-04-26)
+- R version 3.6.3 (2020-02-29)
 - Platform: x86_64-w64-mingw32/x64 (64-bit)
 - Running under: Windows 7 x64 (build 7601) Service Pack 1
 
@@ -34,6 +34,8 @@ The `R` library dependencies are listed at the top of each .R file.
 |   +-- distribution_fitting.R
 |   +-- out_of_sample.R
 |   +-- RStest.R
+|   +-- risk_measures.R
+|   +-- quantile_regression_ci.R
 |
 +-- data
 |   +-- DataVulnerability.xls
@@ -48,11 +50,16 @@ The `R` library dependencies are listed at the top of each .R file.
 |   +-- parameters_out_of_sample_only_GDP.csv
 |   +-- parameters_out_of_sampleA_only_GDP.csv
 |   +-- RStestresults.csv
+|   +-- one_quarter_NFCI_CI_MMB.csv
+|   +-- one_quarter_realGDPgrowth_CI_MMB.csv
+|   +-- one_year_NFCI_CI_MMB.csv
+|   +-- one_year_realGDPgrowthA_CI_MMB.csv
 |
 +-- figures
     +-- figure1.pdf
     +-- figure2.pdf
     +-- figure3.pdf
+    +-- figure4.pdf
 ```
 
 ## Description of the data
@@ -67,7 +74,8 @@ All data used is contained in ./data/DataVulnerability.xls. References to the da
 - distribution_fitting.R: Reproduces Figure 2 and 3. Output is saved in ./figures/figure2.pdf and ./figures/figure3.pdf.
 - RStest.R: Implements the test of [Rossi and Sekhposyan (2019)](https://doi.org/10.1016/j.jeconom.2018.07.008).
 - out_of_sample.R: Reproduces Table 1. Output is saved in ./storage/RStestresults.csv.
-
+- risk_measures.R: Reproduces Figure 4.
+- quantile_regression_ci: Computes the confidence intervals of the multivariate quantile regressions using moving blocks boostrap. Output is saved in ./storage/..._CI_MMB.csv.
 
 
 ## Description of storage
