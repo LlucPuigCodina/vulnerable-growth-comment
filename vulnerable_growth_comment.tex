@@ -159,7 +159,7 @@ step involved estimating a bivariate VAR(4) and simulating 1000 samples
 using normal innovations. For each of the simulated samples a quantile
 regression at \(\tau\) is fitted and the median of the slopes found,
 along with 68, 90 and 95 percent confidence intervals
-(CIs).\footnote{Note that the CI come from fitting quantile regressions, not OLS, as the confidence intervals vary at each $\tau$.}
+(CIs).\footnote{Note that the CIs come from fitting quantile regressions, not OLS, as the confidence intervals vary at each $\tau$.}
 If the point estimates using the actual data are outside the CIs of the
 estimated slopes using simulated data, ABG conclude that the regression
 slopes are different. Under the authors interpretation of the results,
@@ -167,9 +167,11 @@ the relevant null hypothesis is
 \(\widehat{\beta(\tau)^{sim}} - \widehat{\beta(\tau)^{orig}} = 0\).\footnote{Say only for a particular variable and percentile, thus sidestepping the issue of multiple hypothesis testing.}
 Yet the procedure seems to ignore the uncertainty in the estimation of
 the regression slope on the original data, whose CIs are never reported,
-treating it as a constant. Therefore, the test holds valid only if we
-assume the point estimate of the regression slope to be the true
-parameter, an unreliable assumption for proper
+treating it as a
+constant.\footnote{See Figure 4 of Koenker and Hallock (2001) where both CIs are reported.}
+Therefore, the test holds valid only if we assume the point estimate of
+the regression slope to be the true parameter, an unreliable assumption
+for proper
 inference.\footnote{I attempted to produce confidence intervals for the in-sample estimates using the moving block boostrap of Fitzenberger (1998) but obtained inconsistent distributions of boostrap estimates.}
 
 As an additional note of caution, notice that in all specifications GDP
@@ -386,6 +388,9 @@ inference for linear least squares and quantile regressions.
 
 Fan, J., \& Fan, Y. (2010). Issues on quantile autoregression.
 \emph{Unpublished}.
+
+Koenker, R., \& Hallock K. F. (2001). Quantile Regression. \emph{Journal
+of Economic Prespectives}, 15(4), 143-156.
 
 Rossi, B., \& Sekhposyan, T. (2019). Alternative tests for correct
 specification of conditional predictive densities. \emph{Journal of
